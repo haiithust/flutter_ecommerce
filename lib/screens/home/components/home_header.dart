@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/models/OrderCart.dart';
 import 'package:shop_app/screens/cart/cart_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../../size_config.dart';
 import 'icon_btn_with_counter.dart';
@@ -12,6 +14,7 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int totalItemInCart = context.select((OrderCart value) => value.totalCart);
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
@@ -21,11 +24,12 @@ class HomeHeader extends StatelessWidget {
           SearchField(),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Cart Icon.svg",
+            numOfItem: totalItemInCart,
             press: () => Navigator.pushNamed(context, CartScreen.routeName),
           ),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Bell.svg",
-            numOfitem: 3,
+            numOfItem: 3,
             press: () {},
           ),
         ],
