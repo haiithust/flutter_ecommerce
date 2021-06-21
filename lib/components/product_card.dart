@@ -12,11 +12,10 @@ class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
     this.width = 140,
-    this.aspectRetio = 1.02,
     required this.product,
   }) : super(key: key);
 
-  final double width, aspectRetio;
+  final double width;
   final Product product;
 
   @override
@@ -34,6 +33,7 @@ class ProductCard extends StatelessWidget {
             arguments: ProductDetailsArguments(product: product),
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AspectRatio(

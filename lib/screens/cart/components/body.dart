@@ -19,7 +19,7 @@ class _BodyState extends State<Body> {
       builder: (context, orderCart, child) {
         return Padding(
           padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: ListView.builder(
             itemCount: orderCart.carts.length,
             itemBuilder: (context, index) => Padding(
@@ -45,7 +45,10 @@ class _BodyState extends State<Body> {
                     ],
                   ),
                 ),
-                child: CartCard(cart: orderCart.carts[index]),
+                child: CartCard(
+                  product: orderCart.carts[index].product,
+                  total: orderCart.carts[index].numOfItem,
+                ),
               ),
             ),
           ),

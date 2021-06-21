@@ -11,12 +11,11 @@ import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
 import 'package:shop_app/shared_preference_key.dart';
 import 'package:shop_app/theme.dart';
-import 'package:path_provider/path_provider.dart' as pathProvider;
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final appDocumentDirectory = await pathProvider.getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDirectory.path);
+  await Hive.initFlutter();
   await Hive.openBox(favoriteTable);
   await Hive.openBox(cartTable);
   final prefs = await SharedPreferences.getInstance();

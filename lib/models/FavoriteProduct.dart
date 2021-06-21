@@ -21,4 +21,11 @@ class FavoriteProduct extends ChangeNotifier {
     box.put(favoriteKey, productIds);
     notifyListeners();
   }
+
+  void remove(int id) {
+    if (productIds.remove(id)) {
+      box.put(favoriteKey, productIds);
+      notifyListeners();
+    }
+  }
 }
