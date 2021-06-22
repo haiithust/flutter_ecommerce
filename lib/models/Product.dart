@@ -7,6 +7,7 @@ class Product {
   final List<Color> colors;
   final double rating, price;
   final bool isPopular;
+  final Color selectedColor;
 
   Product({
     required this.id,
@@ -14,10 +15,33 @@ class Product {
     required this.colors,
     this.rating = 0.0,
     this.isPopular = false,
+    Color? defaultColor,
     required this.title,
     required this.price,
     required this.description,
-  });
+  })  : assert(colors.isNotEmpty, true),
+        selectedColor = defaultColor ?? colors[0];
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Product &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          selectedColor == other.selectedColor;
+
+  @override
+  int get hashCode => id.hashCode ^ selectedColor.hashCode;
+
+  clone(Color selectedColor) => Product(
+      id: id,
+      images: images,
+      colors: colors,
+      title: title,
+      price: price,
+      description: description,
+      defaultColor: selectedColor
+  );
 }
 
 // Our demo Products

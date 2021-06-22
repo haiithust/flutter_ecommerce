@@ -19,7 +19,8 @@ class ProductDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isFavorite = context.select((FavoriteProduct value) => value.productIds.contains(product.id));
+    final isFavorite = context.select(
+        (FavoriteProduct value) => value.productIds.contains(product.id));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,31 +32,58 @@ class ProductDescription extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-            width: getProportionateScreenWidth(64),
-            decoration: BoxDecoration(
-              color:
-                  isFavorite ? Color(0xFFFFE6E6) : Color(0xFFF5F6F9),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomLeft: Radius.circular(20),
+        SizedBox(height: 8,),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: 48,
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              decoration: BoxDecoration(
+                color:  Color(0xFFFFE6E6),
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "${product.rating}",
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  SvgPicture.asset("assets/icons/Star Icon.svg"),
+                ],
               ),
             ),
-            child: SvgPicture.asset(
-              "assets/icons/Heart Icon_2.svg",
-              color:
-                  isFavorite ? Color(0xFFFF4848) : Color(0xFFDBDEE4),
-              height: getProportionateScreenWidth(16),
-            ),
-          ),
+            Container(
+              padding: EdgeInsets.all(getProportionateScreenWidth(15)),
+              height: 48,
+              width: getProportionateScreenWidth(64),
+              decoration: BoxDecoration(
+                color: isFavorite ? Color(0xFFFFE6E6) : Color(0xFFF5F6F9),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                ),
+              ),
+              child: SvgPicture.asset(
+                "assets/icons/Heart Icon_2.svg",
+                color: isFavorite ? Color(0xFFFF4848) : Color(0xFFDBDEE4),
+              ),
+            )
+          ],
         ),
+        SizedBox(height: 8,),
         Padding(
-          padding: EdgeInsets.only(
-            left: getProportionateScreenWidth(20),
-            right: getProportionateScreenWidth(64),
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
           ),
           child: Text(
             product.description,

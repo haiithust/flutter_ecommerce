@@ -40,8 +40,7 @@ class Body extends StatelessWidget {
                         padding: EdgeInsets.only(
                           left: SizeConfig.screenWidth * 0.15,
                           right: SizeConfig.screenWidth * 0.15,
-                          bottom: getProportionateScreenWidth(40),
-                          top: getProportionateScreenWidth(15),
+                          bottom: getProportionateScreenWidth(20),
                         ),
                         child: DefaultButton(
                           text: "Add To Cart",
@@ -62,5 +61,12 @@ class Body extends StatelessWidget {
   void _addToCard(BuildContext context) {
     final orderCart = Provider.of<OrderCart>(context, listen: false);
     orderCart.add(Cart(product: product, numOfItem: 1));
+    final snackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      content: Text('Added to Shopping Cart'),
+      margin: EdgeInsets.all(20),
+      duration: Duration(milliseconds: 1000),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

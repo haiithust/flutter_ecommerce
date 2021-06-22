@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/models/Cart.dart';
@@ -10,30 +11,34 @@ class OrderCart extends ChangeNotifier {
   final Box box = Hive.box(cartTable);
 
   OrderCart() {
-    _carts.addAll(box.keys
-        .map((id) => demoProducts.find((element) => element.id == id)!)
-        .map((product) => Cart(
-            product: product,
-            numOfItem: box.get(product.id, defaultValue: 1))));
+    _carts.addAll(box.keys.map((key) {
+      final List<String> splits = (key as String).split("|");
+      assert(splits.length == 2, true);
+      final int id = int.parse(splits[0]);
+      final Color selectedColor = Color(int.parse(splits[1]));
+      final Product product = demoProducts
+          .firstWhere((element) => element.id == id);
+      return Cart(product: product.clone(selectedColor), numOfItem: box.get(key, defaultValue: 1));
+    }));
   }
 
   void add(Cart cart) {
     Cart? currentCart =
-        _carts.find((element) => element.product.id == cart.product.id);
+        _carts.find((element) => element.product == cart.product);
     if (currentCart == null) {
       _carts.add(cart);
       currentCart = cart;
     } else {
       currentCart.increase();
     }
-    box.put(cart.product.id, currentCart.numOfItem);
+    box.put(currentCart.template, currentCart.numOfItem);
     notifyListeners();
   }
 
   void removeAt(int index) {
     if (index >= 0 && index < _carts.length) {
       final cart = _carts.removeAt(index);
-      box.delete(cart.product.id);
+      box.delete(cart.template);
     }
     notifyListeners();
   }

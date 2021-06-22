@@ -11,4 +11,6 @@ class Cart {
   void increase() {
     numOfItem++;
   }
+
+  String get template => "${product.id}|${product.selectedColor.value}";
 }
