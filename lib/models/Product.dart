@@ -5,6 +5,7 @@ class Product {
   final String title, description;
   final List<String> images;
   final List<Color> colors;
+  final List<String> colorNames;
   final double rating, price;
   final bool isPopular;
   final Color selectedColor;
@@ -13,6 +14,7 @@ class Product {
     required this.id,
     required this.images,
     required this.colors,
+    required this.colorNames,
     this.rating = 0.0,
     this.isPopular = false,
     Color? defaultColor,
@@ -20,6 +22,7 @@ class Product {
     required this.price,
     required this.description,
   })  : assert(colors.isNotEmpty, true),
+        assert(colors.length == colorNames.length, true),
         selectedColor = defaultColor ?? colors[0];
 
   @override
@@ -37,6 +40,7 @@ class Product {
       id: id,
       images: images,
       colors: colors,
+      colorNames: colorNames,
       title: title,
       price: price,
       description: description,
@@ -61,6 +65,12 @@ List<Product> demoProducts = [
       Color(0xFFDECB9C),
       Colors.white,
     ],
+    colorNames: [
+      "Red",
+      "Pink",
+      "Light Yellow",
+      "White",
+    ],
     title: "Wireless Controller for PS4™",
     price: 64.99,
     description: description,
@@ -77,6 +87,12 @@ List<Product> demoProducts = [
       Color(0xFF836DB8),
       Color(0xFFDECB9C),
       Colors.white,
+    ],
+    colorNames: [
+      "Red",
+      "Pink",
+      "Light Yellow",
+      "White",
     ],
     title: "Nike Sport White - Man Pant",
     price: 50.5,
@@ -95,6 +111,12 @@ List<Product> demoProducts = [
       Color(0xFFDECB9C),
       Colors.white,
     ],
+    colorNames: [
+      "Red",
+      "Pink",
+      "Light Yellow",
+      "White",
+    ],
     title: "Gloves XC Omega - Polygon",
     price: 36.55,
     description: description,
@@ -111,6 +133,12 @@ List<Product> demoProducts = [
       Color(0xFF836DB8),
       Color(0xFFDECB9C),
       Colors.white,
+    ],
+    colorNames: [
+      "Red",
+      "Pink",
+      "Light Yellow",
+      "White",
     ],
     title: "Logitech Head",
     price: 20.20,

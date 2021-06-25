@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
+import 'package:shop_app/models/User.dart';
 import 'package:shop_app/size_config.dart';
 
 import 'otp_form.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  final User user;
+
+  const Body({Key? key, required this.user}) : super(key: key);
+
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -15,14 +25,16 @@ class Body extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: SizeConfig.screenHeight * 0.05),
+              SizedBox(height: 32),
               Text(
                 "OTP Verification",
                 style: headingStyle,
               ),
               Text("We sent your code to +1 898 860 ***"),
               buildTimer(),
-              OtpForm(),
+              OtpForm(
+                onVerifyClicked: () => _onVerifyClicked(context),
+              ),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
               GestureDetector(
                 onTap: () {
@@ -40,6 +52,10 @@ class Body extends StatelessWidget {
     );
   }
 
+  void _onVerifyClicked(BuildContext context) {
+    Navigator.of(context).pop();
+  }
+
   Row buildTimer() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +65,7 @@ class Body extends StatelessWidget {
           tween: Tween(begin: 30.0, end: 0.0),
           duration: Duration(seconds: 30),
           builder: (_, dynamic value, child) => Text(
-            "00:${value.toInt()}",
+            "00:${value.toInt().toString().padLeft(2, '0')}",
             style: TextStyle(color: kPrimaryColor),
           ),
         ),

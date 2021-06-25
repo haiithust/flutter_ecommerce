@@ -17,6 +17,7 @@ class CartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isOrderCart = total > 0;
     return GestureDetector(
       onTap: () => Navigator.pushNamed(
         context,
@@ -50,20 +51,26 @@ class CartCard extends StatelessWidget {
                   style: TextStyle(color: Colors.black, fontSize: 16),
                   maxLines: 2,
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 4),
+                if (isOrderCart)
+                  Text(
+                    "Color: ${product.colorNames[product.colors.indexOf(product.selectedColor)]}",
+                    style: Theme.of(context).textTheme.overline!.copyWith(color: Colors.red[800]),
+                  ),
+                SizedBox(height: 12),
                 Text.rich(
                   TextSpan(
                     text: "\$${product.price}",
                     style: TextStyle(
                         fontWeight: FontWeight.w600, color: kPrimaryColor),
                     children: [
-                      if (total > 0)
+                      if (isOrderCart)
                         TextSpan(
                             text: " x$total",
                             style: Theme.of(context).textTheme.bodyText1),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           )

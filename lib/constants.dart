@@ -50,5 +50,7 @@ OutlineInputBorder outlineInputBorder() {
 }
 
 const favoriteKey = "favorite";
+
 const favoriteTable = "favorite_products";
 const cartTable = "order_cart";
+const settingTable = "setting";

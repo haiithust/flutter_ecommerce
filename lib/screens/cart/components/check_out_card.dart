@@ -17,9 +17,8 @@ class CheckoutCard extends StatelessWidget {
     return Consumer<OrderCart>(
       builder: (context, orderCart, child) {
         return Container(
-          padding: EdgeInsets.symmetric(
-            vertical: getProportionateScreenWidth(15),
-            horizontal: getProportionateScreenWidth(30),
+          padding: EdgeInsets.all(
+            20
           ),
           // height: 174,
           decoration: BoxDecoration(
@@ -79,11 +78,11 @@ class CheckoutCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      width: getProportionateScreenWidth(190),
-                      child: TextButton(
-                        child: Text("Check Out"),
-                        onPressed: orderCart.carts.isEmpty ? null : () => {},
+                    SizedBox(width: 20,),
+                    Expanded(
+                      child: DefaultButton(
+                        text: "Check Out",
+                        press: orderCart.carts.isEmpty ? null : () => {},
                       ),
                     ),
                   ],

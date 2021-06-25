@@ -18,6 +18,7 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox(favoriteTable);
   await Hive.openBox(cartTable);
+  await Hive.openBox(settingTable);
   final prefs = await SharedPreferences.getInstance();
   bool isViewGuideline = prefs.getBool(isViewGuidelineKey) ?? false;
   final String initRoute;

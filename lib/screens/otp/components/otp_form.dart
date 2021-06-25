@@ -5,8 +5,11 @@ import 'package:shop_app/size_config.dart';
 import '../../../constants.dart';
 
 class OtpForm extends StatefulWidget {
+  final Function onVerifyClicked;
+
   const OtpForm({
     Key? key,
+    required this.onVerifyClicked,
   }) : super(key: key);
 
   @override
@@ -14,9 +17,9 @@ class OtpForm extends StatefulWidget {
 }
 
 class _OtpFormState extends State<OtpForm> {
-  FocusNode? pin2FocusNode;
-  FocusNode? pin3FocusNode;
-  FocusNode? pin4FocusNode;
+  late FocusNode pin2FocusNode;
+  late FocusNode pin3FocusNode;
+  late FocusNode pin4FocusNode;
 
   @override
   void initState() {
@@ -29,9 +32,9 @@ class _OtpFormState extends State<OtpForm> {
   @override
   void dispose() {
     super.dispose();
-    pin2FocusNode!.dispose();
-    pin3FocusNode!.dispose();
-    pin4FocusNode!.dispose();
+    pin2FocusNode.dispose();
+    pin3FocusNode.dispose();
+    pin4FocusNode.dispose();
   }
 
   void nextField(String value, FocusNode? focusNode) {
@@ -45,7 +48,7 @@ class _OtpFormState extends State<OtpForm> {
     return Form(
       child: Column(
         children: [
-          SizedBox(height: SizeConfig.screenHeight * 0.15),
+          SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -98,7 +101,7 @@ class _OtpFormState extends State<OtpForm> {
                   decoration: otpInputDecoration,
                   onChanged: (value) {
                     if (value.length == 1) {
-                      pin4FocusNode!.unfocus();
+                      pin4FocusNode.unfocus();
                       // Then you need to check is the code is correct or not
                     }
                   },
@@ -106,10 +109,12 @@ class _OtpFormState extends State<OtpForm> {
               ),
             ],
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.15),
+          SizedBox(height: 24),
           DefaultButton(
-            text: "Continue",
-            press: () {},
+            text: "Verify",
+            press: () {
+              widget.onVerifyClicked();
+            },
           )
         ],
       ),

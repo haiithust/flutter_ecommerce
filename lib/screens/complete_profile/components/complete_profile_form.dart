@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/models/User.dart';
 import 'package:shop_app/screens/otp/otp_screen.dart';
 
 import '../../../constants.dart';
@@ -41,19 +42,24 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       child: Column(
         children: [
           buildFirstNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionateScreenHeight(10)),
           buildLastNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionateScreenHeight(10)),
           buildPhoneNumberFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionateScreenHeight(10)),
           buildAddressFormField(),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
+          SizedBox(height: getProportionateScreenHeight(30)),
           DefaultButton(
-            text: "continue",
+            text: "Continue",
             press: () {
               if (_formKey.currentState!.validate()) {
-                Navigator.pushNamed(context, OtpScreen.routeName);
+                Navigator.pushNamed(context, OtpScreen.routeName, arguments: OtpScreenArguments(user: User(
+                  firstName: firstName ?? "",
+                  lastName: lastName ?? "",
+                  phoneNumber: phoneNumber ?? "",
+                  address: address ?? "",
+                )));
               }
             },
           ),
@@ -64,12 +70,12 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildAddressFormField() {
     return TextFormField(
+      textCapitalization: TextCapitalization.words,
       onSaved: (newValue) => address = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kAddressNullError);
         }
-        return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -79,14 +85,12 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Address",
-        hintText: "Enter your phone address",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon:
-            CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
-      ),
+          labelText: "Address",
+          hintText: "Enter your address",
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          suffixIcon:
+              CustomSuffixIcon(svgIcon: "assets/icons/Location point.svg"),
+          errorStyle: TextStyle(height: 0)),
     );
   }
 
@@ -98,7 +102,6 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         if (value.isNotEmpty) {
           removeError(error: kPhoneNumberNullError);
         }
-        return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -108,38 +111,35 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Phone Number",
-        hintText: "Enter your phone number",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
-      ),
+          labelText: "Phone Number",
+          hintText: "Enter your phone number",
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Phone.svg"),
+          errorStyle: TextStyle(height: 0)),
     );
   }
 
   TextFormField buildLastNameFormField() {
     return TextFormField(
+      textCapitalization: TextCapitalization.words,
       onSaved: (newValue) => lastName = newValue,
       decoration: InputDecoration(
-        labelText: "Last Name",
-        hintText: "Enter your last name",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
-      ),
+          labelText: "Last Name",
+          hintText: "Enter your last name",
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/User.svg"),
+          errorStyle: TextStyle(height: 0)),
     );
   }
 
   TextFormField buildFirstNameFormField() {
     return TextFormField(
+      textCapitalization: TextCapitalization.words,
       onSaved: (newValue) => firstName = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNamelNullError);
         }
-        return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -149,13 +149,11 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "First Name",
-        hintText: "Enter your first name",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
-      ),
+          labelText: "First Name",
+          hintText: "Enter your first name",
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/User.svg"),
+          errorStyle: TextStyle(height: 0)),
     );
   }
 }
