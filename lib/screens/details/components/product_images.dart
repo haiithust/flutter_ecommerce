@@ -22,13 +22,20 @@ class _ProductImagesState extends State<ProductImages> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          width: getProportionateScreenWidth(164),
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: Hero(
-              tag: widget.product.id.toString(),
-              child: Image.asset(widget.product.images[selectedImage]),
+        AnimatedSwitcher(
+          duration: defaultDuration,
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return ScaleTransition(child: child, scale: animation);
+          },
+          child: SizedBox(
+            key: ValueKey<int>(selectedImage),
+            width: getProportionateScreenWidth(164),
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Hero(
+                tag: widget.product.id.toString(),
+                child: Image.asset(widget.product.images[selectedImage]),
+              ),
             ),
           ),
         ),
